@@ -24,7 +24,7 @@ trainloader = torch.utils.data.DataLoader(trainset, batch_size=batch_size, shuff
 generator = Generator()
 discriminator = Discriminator()
 
-重みの初期化
+# 重みの初期化
 def init_weights(m):
     if type(m) == nn.Linear:
         nn.init.normal_(m.weight,0,0.01)
