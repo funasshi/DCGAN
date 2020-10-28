@@ -1,6 +1,7 @@
 import torch
 from model import Generator
 import matplotlib.pyplot as plt
+import numpy as np
 
 # ----------------------------------------------------------------------------------------------
 # モデル定義
@@ -16,8 +17,7 @@ yoko=6
 for i in range(1,tate*yoko+1):
     ax=fig.add_subplot(tate,yoko,i)
     fake=generator(torch.rand((1,1,100)))
-    fake=fake.reshape(28,28)
-    fake=fake.detach().numpy()
+    fake=fake.detach().numpy().reshape(3,32,32).transpose(1,2,0)
     ax.tick_params(labelbottom=False,
                    labelleft=False,
                    labelright=False,
@@ -26,7 +26,7 @@ for i in range(1,tate*yoko+1):
                    left=False,
                    right=False,
                    top=False)
-    ax.imshow((fake+1)/2,cmap="gray")
+    ax.imshow((fake+1)/2)
 
 plt.savefig("generated_img.png")
 plt.show()

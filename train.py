@@ -49,19 +49,19 @@ loss_cross = nn.BCELoss()
 
 # 最適化アルゴリズム定義
 optimizer_d = optim.Adam(discriminator.parameters(), lr=0.0003, betas=(0.5, 0.999))
-optimizer_g = optim.Adam(generator.parameters(), lr=0.0002, betas=(0.5, 0.999))
+optimizer_g = optim.Adam(generator.parameters(), lr=0.0001, betas=(0.5, 0.999))
 epochs = int(input("epochs:"))
 
 
-def schedule_func(epoch):
-    middle = epochs // 2
-    if epoch < middle:
-        return 1
-    return (epochs - epoch) / middle
-
-
-scheduler_d = optim.lr_scheduler.LambdaLR(optimizer_d, lr_lambda=schedule_func)
-scheduler_g = optim.lr_scheduler.LambdaLR(optimizer_g, lr_lambda=schedule_func)
+# def schedule_func(epoch):
+#     middle = epochs // 2
+#     if epoch < middle:
+#         return 1
+#     return (epochs - epoch) / middle
+#
+#
+# scheduler_d = optim.lr_scheduler.LambdaLR(optimizer_d, lr_lambda=schedule_func)
+# scheduler_g = optim.lr_scheduler.LambdaLR(optimizer_g, lr_lambda=schedule_func)
 
 
 # ----------------------------------------------------------------------------------------------
@@ -117,8 +117,8 @@ def train(generator, discriminator, epochs):
         loss_d_list.append(total_loss_d)
         loss_g_list.append(total_loss_g)
         print("epoch %3d : loss_g = %4f   loss_d = %4f" % (epoch, total_loss_g, total_loss_d))
-        scheduler_g.step()
-        scheduler_d.step()
+        # scheduler_g.step()
+        # scheduler_d.step()
     return loss_d_list, loss_g_list
 
 
